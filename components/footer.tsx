@@ -93,7 +93,7 @@ export const Footer: React.FC = () => {
         </ShaderGradientCanvas>
       </div>
 
-      <div className="relative z-10 mx-auto max-w-[1800px] px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative z-10 mx-auto max-w-450 px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
           <div className="lg:col-span-1 flex flex-col items-center lg:items-start text-center lg:text-left">
             <h2 className="font-timesnow text-5xl text-black">Sevenfold</h2>

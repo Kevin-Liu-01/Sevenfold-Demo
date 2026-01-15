@@ -164,7 +164,7 @@ const HeroFold = () => {
       <div className="absolute top-72 left-72 -rotate-45 h-px w-full bg-white/30 hidden lg:block" />
       <div className="absolute bottom-4 right-72 -rotate-45 h-px w-full bg-white/30 hidden lg:block" />
 
-      <div className="relative z-10 w-full h-full max-w-[1800px] mx-auto grid grid-cols-1 lg:grid-cols-2 items-center px-4 sm:px-6">
+      <div className="relative z-10 w-full h-full max-w-450 mx-auto grid grid-cols-1 lg:grid-cols-2 items-center px-4 sm:px-6">
         {/* Left Column: Text Content */}
         <div className="pt-20 pl-10 lg:pt-0">
           <motion.h1
@@ -400,7 +400,7 @@ const CarouselFold = () => {
         </h2>
       </div>
 
-      <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)] z-10">
+      <div className="relative w-full overflow-hidden mask-[linear-gradient(to_right,transparent,black_20%,black_80%,transparent)] z-10">
         <motion.div
           className="flex"
           animate={{ x: `-${100 / 3}%` }}
@@ -409,7 +409,7 @@ const CarouselFold = () => {
           {allLogos.map(({ src, href, name }, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-1/4 sm:w-1/6 flex items-center justify-center group"
+              className="shrink-0 w-1/4 sm:w-1/6 flex items-center justify-center group"
             >
               <a
                 href={href}
@@ -434,6 +434,16 @@ const CarouselFold = () => {
   );
 };
 
+type FeatureFoldProps = {
+  number: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  align?: "left" | "right";
+  gradientProps: React.ComponentProps<typeof ShaderGradient>;
+};
+
 // --- 4. Feature Fold Component ---
 const FeatureFold = ({
   number,
@@ -443,15 +453,7 @@ const FeatureFold = ({
   image,
   align = "left",
   gradientProps,
-}: {
-  number: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  image: string;
-  align?: "left" | "right";
-  gradientProps: any;
-}) => {
+}: FeatureFoldProps) => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, {
     margin: "200px 0px 200px 0px",
@@ -486,8 +488,8 @@ const FeatureFold = ({
       </motion.div>
 
       <ConcentricCircles
-        className={`absolute z-0 w-[400px] h-[400px] text-black/10 ${
-          isLeft ? "right-[-100px]" : "left-[-100px]"
+        className={`absolute z-0 w-100 h-100 text-black/10 ${
+          isLeft ? "-right-25" : "-left-25"
         } top-1/2 -translate-y-1/2`}
       />
 
@@ -573,8 +575,8 @@ const CallToActionFold = () => {
         </div>
       )}
 
-      <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white to-transparent z-10" />
-      <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-white to-transparent z-10" />
+      <div className="absolute top-0 left-0 w-full h-1/2 bg-linear-to-b from-white to-transparent z-10" />
+      <div className="absolute bottom-0 left-0 w-full h-1/2 bg-linear-to-t from-white to-transparent z-10" />
 
       <div className="relative z-20">
         <div className="absolute right-1/4 top-0 h-full w-px bg-gray-500/20 hidden lg:block" />
@@ -625,7 +627,7 @@ const CallToActionFold = () => {
 
 // --- Main Landing Page Component ---
 const LandingPage = () => {
-  const featureData = [
+  const featureData: FeatureFoldProps[] = [
     {
       number: "01",
       subtitle: "Synthesize & Discover",
@@ -700,14 +702,19 @@ const LandingPage = () => {
   };
 
   const totalFolds = 6; // Hero, Carousel, 3 Features, CTA
-  const foldTransforms = Array.from({ length: totalFolds }, (_, i) =>
-    useFoldTransform(i, totalFolds)
-  );
+  const foldTransforms = [
+    useFoldTransform(0, totalFolds),
+    useFoldTransform(1, totalFolds),
+    useFoldTransform(2, totalFolds),
+    useFoldTransform(3, totalFolds),
+    useFoldTransform(4, totalFolds),
+    useFoldTransform(5, totalFolds),
+  ];
 
   return (
-    <main className="bg-white z-[90]" ref={scrollRef}>
-      <div className="fixed top-0 left-0 sm:left-6 h-full w-px bg-white/20 z-[101] pointer-events-none" />
-      <div className="fixed top-0 right-0 sm:right-6 h-full w-px bg-white/20 z-[101] pointer-events-none" />
+    <main className="bg-white z-90" ref={scrollRef}>
+      <div className="fixed top-0 left-0 sm:left-6 h-full w-px bg-white/20 z-101 pointer-events-none" />
+      <div className="fixed top-0 right-0 sm:right-6 h-full w-px bg-white/20 z-101 pointer-events-none" />
 
       <div className="h-[600vh] relative">
         <motion.div style={foldTransforms[0]} className="sticky top-0 h-screen">

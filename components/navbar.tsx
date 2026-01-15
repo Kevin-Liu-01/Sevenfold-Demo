@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import { MenuIcon, XIcon, ArrowUpRightIcon } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ShaderGradientCanvas, ShaderGradient } from "@shadergradient/react";
-import * as reactSpring from "@react-spring/three";
 
 const rawAppUrl = process.env.NEXT_PUBLIC_APP_URL?.trim() ?? "";
 const appBaseUrl = rawAppUrl.replace(/\/$/, "");
@@ -13,6 +13,9 @@ const appBaseUrl = rawAppUrl.replace(/\/$/, "");
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const pathname = usePathname();
+  const isLegalPage = pathname === "/terms" || pathname === "/privacy";
+  const useDarkText = isLegalPage || hasScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,12 +33,12 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: "Features", href: "#features" },
-    { name: "Pricing", href: "/pricing" },
-    { name: "Company", href: "/company" },
+    { name: "Features", href: "/terms" },
+    { name: "Pricing", href: "/privacy" },
+    { name: "Company", href: "/terms" },
   ];
 
-  const mobileMenuVariants = {
+  const mobileMenuVariants: Variants = {
     hidden: { opacity: 0, y: "-100%" },
     visible: {
       opacity: 1,
@@ -52,11 +55,15 @@ export const Navbar: React.FC = () => {
   return (
     <nav
       aria-label="Primary"
-      className={`fixed top-0 w-full z-[100] transition-colors duration-300 ${
-        hasScrolled ? "text-black" : "text-white"
+      className={`fixed top-0 w-full z-100 transition-colors duration-300 ${
+        isLegalPage
+          ? "text-black bg-linear-to-b from-white via-white/95 to-transparent "
+          : hasScrolled
+          ? "text-black bg-linear-to-b from-white via-white/95 to-transparent "
+          : "text-white"
       }`}
     >
-      <div className="mx-auto max-w-[1800px] px-4 sm:px-8 lg:px-13">
+      <div className="mx-auto max-w-450 px-4 sm:px-8 lg:px-13">
         <div className="grid grid-cols-3 h-20 items-center">
           <div className="col-span-1 flex items-center">
             <Link
@@ -90,7 +97,7 @@ export const Navbar: React.FC = () => {
                 <Link
                   href={link.href}
                   className={`relative pb-1 after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:origin-left hover:after:scale-x-100 ${
-                    hasScrolled ? "after:bg-black" : "after:bg-white"
+                    useDarkText ? "after:bg-black" : "after:bg-white"
                   }`}
                 >
                   {link.name}
@@ -102,7 +109,7 @@ export const Navbar: React.FC = () => {
             <Link
               href={appBaseUrl}
               className={`hidden mr-8 md:inline-flex items-center gap-2 font-inter text-sm px-5 py-2.5 border rounded-full transition-all duration-300 ${
-                hasScrolled
+                useDarkText
                   ? "border-black/40 hover:border-black hover:bg-black hover:text-white"
                   : "border-white/40 hover:border-white hover:bg-white hover:text-neutral-900"
               }`}
@@ -127,7 +134,7 @@ export const Navbar: React.FC = () => {
         {isOpen && (
           <motion.div
             id="mobile-nav"
-            className="md:hidden fixed inset-0 z-[110] bg-neutral-900/50 backdrop-blur-2xl"
+            className="md:hidden fixed inset-0 z-110 bg-neutral-900/50 backdrop-blur-2xl"
             variants={mobileMenuVariants}
             initial="hidden"
             animate="visible"
