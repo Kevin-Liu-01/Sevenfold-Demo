@@ -115,19 +115,19 @@ const HeroFold = () => {
       id: 1,
       image: "/images/pdfviewer-mockup.png",
       title: "Chatbot Mockup",
-      className: "w-[85%] right-[17.5%] top-[12%] z-10 shadow-2xl",
+      className: "w-[85%] right-[17.5%] top-[14%] z-10 shadow-2xl",
     },
     {
       id: 2,
       image: "/images/search-mockup.png",
       title: "Search Mockup",
-      className: "w-[75%] absolute z-20 top-[25%] left-[-5%] shadow-2xl",
+      className: "w-[75%] absolute z-20 top-[27%] left-[-5%] shadow-2xl",
     },
     {
       id: 3,
       image: "/images/chatbot-mockup.png",
       title: "PDF Viewer Mockup",
-      className: "w-[90%] absolute z-0 top-[4%] right-[9.5%] shadow-2xl",
+      className: "w-[90%] absolute z-0 top-[6%] right-[9.5%] shadow-2xl",
     },
   ];
 
@@ -164,7 +164,7 @@ const HeroFold = () => {
       <div className="absolute top-72 left-72 -rotate-45 h-px w-full bg-white/30 hidden lg:block" />
       <div className="absolute bottom-4 right-72 -rotate-45 h-px w-full bg-white/30 hidden lg:block" />
 
-      <div className="relative z-10 w-full h-full max-w-450 mx-auto grid grid-cols-1 lg:grid-cols-2 items-center px-4 sm:px-6">
+      <div className="relative z-10 w-full gap-20 h-full max-w-450 mx-auto grid grid-cols-1 lg:grid-cols-2 items-center px-4 sm:px-6">
         {/* Left Column: Text Content */}
         <div className="pt-20 pl-10 lg:pt-0">
           <motion.h1
@@ -178,13 +178,13 @@ const HeroFold = () => {
                 <motion.span
                   key={idx}
                   variants={wordVariants}
-                  className="inline-block mr-4"
+                  className="inline-block text-shadow-lg/30 mr-4"
                 >
                   {word}
                 </motion.span>
               ))}
             </span>
-            <span className="block">
+            <span className="block text-shadow-lg/30">
               {titleLine2.map((word, idx) => (
                 <motion.span
                   key={idx}
@@ -197,7 +197,7 @@ const HeroFold = () => {
             </span>
             <span
               className="block text-orange-500
-            text-shadow-lg
+            text-shadow-lg/30
             "
             >
               {titleLine3.map((word, idx) => (
@@ -210,7 +210,7 @@ const HeroFold = () => {
                 </motion.span>
               ))}
             </span>
-            <span className="block text-orange-500            text-shadow-lg">
+            <span className="block text-orange-500 text-shadow-lg/30">
               {titleLine4.map((word, idx) => (
                 <motion.span
                   key={idx}
@@ -223,7 +223,7 @@ const HeroFold = () => {
             </span>
           </motion.h1>
           <motion.p
-            className="text-lg max-w-md mt-6 text-gray-50/80 leading-relaxed"
+            className="text-lg max-w-md mt-6 text-gray-50/80 text-shadow-lg/30 leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{

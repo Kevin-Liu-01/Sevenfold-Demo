@@ -97,7 +97,9 @@ export const Navbar: React.FC = () => {
                 <Link
                   href={link.href}
                   className={`relative pb-1 after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:origin-left hover:after:scale-x-100 ${
-                    useDarkText ? "after:bg-black" : "after:bg-white"
+                    useDarkText
+                      ? "after:bg-black"
+                      : "after:bg-white text-shadow-lg/40"
                   }`}
                 >
                   {link.name}
